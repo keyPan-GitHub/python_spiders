@@ -11,6 +11,7 @@
 import socket
 import json
 import threading
+
 client = socket.socket()
 client.connect(('192.168.1.184', 8000))
 user = 'bobby2'
@@ -32,7 +33,6 @@ client.send(json.dumps(get_user_template).encode('utf8'))
 res = client.recv(1024)
 print("当前在线用户:{}".format(res.decode('utf8')))
 
-
 # 1、获取历史消息
 offline_msg_template = {
     "action": "history_msg",
@@ -43,6 +43,7 @@ res = client.recv(1024)
 print("历史消息:{}".format(res.decode('utf8')))
 
 exit = False
+
 
 def handle_receive():
     # 处理接受请求
@@ -70,7 +71,7 @@ def heandle_send():
     while True:
         # 随时可以发送消息，有新消息随时能够接收到。
         op_type = input("请输入你要进行的操作：1，发送消息。2，退出。3，获取在线用户")
-        if op_type not in ["1","2","3"]:
+        if op_type not in ["1", "2", "3"]:
             print("不支持该操作")
             op_type = input("请输入你要进行的操作：1，发送消息。2，退出。3，获取在线用户")
         elif op_type == "1":

@@ -11,19 +11,22 @@
 # here put the import lib
 import socket
 import threading
+
 server = socket.socket()
 # 绑定ip 与 端口
 server.bind(('0.0.0.0', 8000))
 # 监听
 server.listen()
 
-def handle_sock(sock,addr):
+
+def handle_sock(sock, addr):
     while True:
         # sock.send("welcome to server!".encode("utf8"))
         tmp_date = sock.recv(1024)
         print(tmp_date.decode('utf8'))
         input_date = input()
         sock.send(input_date.encode('utf8'))
+
 
 # 获取客户端并启动线程去处理
 while True:
@@ -32,8 +35,6 @@ while True:
     # 启动一个线程去处理新的用户
     client_thread = threading.Thread(target=handle_sock, args=(sock, addr))
     client_thread.start()
-
-
 
 date = ""
 

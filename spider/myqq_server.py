@@ -17,6 +17,7 @@ import socket
 from collections import defaultdict
 import threading
 import json
+
 # 1、维护用户连接
 online_users = defaultdict(dict)
 
@@ -27,6 +28,7 @@ server = socket.socket()
 
 server.bind(('0.0.0.0', 8000))
 server.listen()
+
 
 def handle_sock(sock, addr):
     while True:
@@ -41,7 +43,7 @@ def handle_sock(sock, addr):
             all_user = [user for user, sock in online_users.items()]
             sock.send(json.dumps(all_user).encode("utf8"))
         elif action == "history_msg":
-            sock.send(json.dumps(user_msgs.get(json_data["user"],[])).encode("utf8"))
+            sock.send(json.dumps(user_msgs.get(json_data["user"], [])).encode("utf8"))
         elif action == "send_msg":
             if json_data['to'] in online_users:
                 online_users[json_data['to']].send(json.dumps(json_data).encode('utf8'))
@@ -49,11 +51,6 @@ def handle_sock(sock, addr):
         elif action == 'exit':
             del online_users[json_data['user']]
             sock.send('退出成功！'.encode("utf8"))
-
-
-
-
-
 
 
 while True:
