@@ -21,6 +21,7 @@ login_template = {
     "action": 'login',
     "user": user
 }
+
 client.send(json.dumps(login_template).encode('utf8'))
 res = client.recv(1024)
 print(res.decode('utf8'))
