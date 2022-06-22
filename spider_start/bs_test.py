@@ -2745,4 +2745,6 @@ html = """<!DOCTYPE html_test PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 from scrapy import Selector
 
 sel = Selector(text=html)
-tag = sel.xpath('//*[@id="comment-post"]')
+# tag = sel.xpath('//*[@id="normalthread_100861"]/tr/th/div[2]/div[1]/div/a[2]/text()').extract()[0]
+info = sel.xpath('//tbody[contains(@id, "normalthread_100861")]/@id').extract()
+print(info)
