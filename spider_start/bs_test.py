@@ -74,9 +74,11 @@ html = """<!DOCTYPE html_test PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
                style="background-image:url(/forum/static/image/feed/thread_b.png) !important">帖子</a></li>
         <li><a href="home.php?mod=space&do=favorite&view=me"
                style="background-image:url(/forum/static/image/feed/favorite_b.png) !important">收藏</a></li>
-        <li><a href="home.php?mod=magic" style="background-image:url(/forum/static/image/feed/magic_b.png) !important">道具</a>
+        <li><a href="home.php?mod=magic" style="background-image:url(/forum/static/image/feed/magic_b.png) !important">
+        道具</a>
         </li>
-        <li><a href="home.php?mod=medal" style="background-image:url(/forum/static/image/feed/medal_b.png) !important">勳章</a>
+        <li><a href="home.php?mod=medal" style="background-image:url(/forum/static/image/feed/medal_b.png) !important">
+        勳章</a>
         </li>
         <li><a href="home.php?mod=task"
                style="background-image:url(/forum/static/image/feed/task_b.png) !important">任務</a></li>
@@ -2366,7 +2368,7 @@ html = """<!DOCTYPE html_test PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
                                         </div>
                                         <div class="main-right-kuaixu-txt y">
                                             <a href="forum.php?mod=viewthread&tid=100825" target="_blank">我现在只对这种真高潮的女孩子感兴趣</a>
-                                            <p>2022-06-19</p>
+                                            <p class="name">2022-06-19</p>
                                         </div>
                                     </li>
                                 </ul>
@@ -2712,20 +2714,35 @@ html = """<!DOCTYPE html_test PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 </body>
 </html_test>
 """
-bs = BeautifulSoup(html, "html.parser")
+# bs = BeautifulSoup(html, "html.parser")
 # title_tag = bs.title
 # print(title_tag.string)
 # div_tag = bs.div
 # print(div_tag.string)
-bs.find('div')
-div_tags = bs.find_all('div')
+# bs.find('div')
+# div_tags = bs.find_all('div')
 # print(div_tags)
 # div_tag = bs.find(id='info')
 # div_tag = bs.find('div', id='info')
 # div_tag = bs.find('div', id=re.compile('info-\d+'))
 # div_tag = bs.find(string='分享一个约炮“偷拍”系列')
-div_tag = bs.find(string=re.compile('偷拍'))
-pass
-# for tag in div_tags:
-#     print(tag.string)
-print(div_tag.string)
+# div_tag = bs.find(string=re.compile('偷拍'))
+# div_tag = bs.find('tbody', id=re.compile('normalthread_\d+'))
+# childrens = div_tag.descendants
+# # for tag in div_tags:
+# #     print(tag.string)
+# for children in childrens:
+#     if children.name:
+#         print(children.name)
+# parent = bs.find("p", _class="name").parent
+# nextSibling = bs.find("p", {'class':'comment-post'}).nextSiblings
+# previous_sibling = bs.find("p", {'class': 'comment-post'}).previous_sibling
+# print(previous_sibling.string)
+# name_tag = bs.find('p',{'class': 'comment-post'})
+# print(name_tag['class'])
+# print(name_tag.get('class'))
+
+from scrapy import Selector
+
+sel = Selector(text=html)
+tag = sel.xpath('//*[@id="comment-post"]')
