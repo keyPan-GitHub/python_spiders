@@ -3,7 +3,7 @@ import requests
 
 def GetHtmlText(url):
     try:
-        response = requests.get('options', url)
+        response = requests.get(url)
         response.raise_for_status()
         response.encoding = response.apparent_encoding
         return response.text
